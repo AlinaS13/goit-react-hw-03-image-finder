@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import SearchSVG from '../../assets/searchSVG';
 import {
   Button,
@@ -13,7 +15,6 @@ export const Searchbar = ({ onSubmit, value }) => {
       <SearchForm>
         <Input
           name={'searchfield'}
-          // onChange={handleChangeInput}
           value={value}
           type="text"
           autocomplete="off"
@@ -26,4 +27,9 @@ export const Searchbar = ({ onSubmit, value }) => {
       </SearchForm>
     </SearchbarElem>
   );
+};
+
+Searchbar.propTypes = {
+  value: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
 };

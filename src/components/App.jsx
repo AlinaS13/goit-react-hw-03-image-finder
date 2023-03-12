@@ -6,8 +6,8 @@ import { getImages } from '../api/api';
 import { Searchbar } from './searchbar';
 import { ImageGallery } from './imageGallery';
 import { Button } from './button';
-import { Modal } from './modal/Modal.styled';
-import { Dna } from 'react-loader-spinner';
+import { Modal } from './modal/Modal';
+import { ColorRing } from 'react-loader-spinner';
 
 export class App extends Component {
   state = {
@@ -60,8 +60,8 @@ export class App extends Component {
       isLoading: true,
     }));
   };
+
   toggleModal = () => {
-    console.log('sdsa');
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   };
 
@@ -72,27 +72,36 @@ export class App extends Component {
     const { images } = this.state;
     return (
       <AppSection>
-        <Searchbar
-          onSubmit={this.handleSubmit}
-          value={this.searchQuery}
-          // onChange={this.handleChangeInput}
-        />
-        <Dna />
-
+        <Searchbar onSubmit={this.handleSubmit} value={this.searchQuery} />
         <ImageGallery
           images={images}
           onClickImage={this.setImg}
-          toggleModal={this.props.toggleModal}
+          toggleModal={this.toggleModal}
         />
-        {this.state.images.length !== 0 && (
-          <Button onHandleClick={this.loadMore} />
-        )}
-
         {this.state.isOpen && (
           <Modal
             onModalClose={this.toggleModal}
             largeImg={this.state.largeImg}
           />
+        )}
+        {this.state.isLoading ? (
+          <div>
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={['#E15B64', '#F47E60', '#F8B26A', '#ABBD81', '#849B87']}
+            />
+          </div>
+        ) : (
+          <div>
+            {this.state.images.length !== 0 && (
+              <Button onHandleClick={this.loadMore} />
+            )}
+          </div>
         )}
       </AppSection>
     );

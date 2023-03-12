@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ModalPage, Overlay } from './Modal.styled';
+import { ModalPage, Overlay, Img } from './Modal.styled';
 
 export class Modal extends Component {
   closeModalBackdrop = event => {
@@ -15,11 +15,11 @@ export class Modal extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handlePressKey);
+    window.addEventListener('keydown', this.handlePressKey);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handlePressKey);
+    window.removeEventListener('keydown', this.handlePressKey);
   }
 
   render() {
@@ -27,7 +27,7 @@ export class Modal extends Component {
     return (
       <Overlay onClick={this.closeModalBackdrop}>
         <ModalPage>
-          <img src={largeImg} alt="" />
+          <Img src={largeImg} alt="" />
         </ModalPage>
       </Overlay>
     );

@@ -5,7 +5,6 @@ const pictureInstance = axios.create({
 });
 
 export const getImages = async (searchQuery, page) => {
-  console.log(searchQuery);
   const { data } = await pictureInstance.get('/', {
     params: {
       key: '33606619-e92c95447caff2b5a446312ae',

@@ -1,19 +1,19 @@
-// import PropTypes fromadd 'prop-types';
+import PropTypes from 'prop-types';
 import { ImageItem, Image } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({
-  images,
-  onClickImage,
-  toggleModal,
-  largeImage,
-}) => {
-  // const handle = () => {
-  //   onClickImage(largeImage);
-  // };
+export const ImageGalleryItem = ({ images, onClickImage, toggleModal }) => {
+  const handle = e => {
+    toggleModal();
+    onClickImage(e.currentTarget.dataset.largeImage);
+  };
   return (
     <>
       {images.map(image => (
-        <ImageItem key={image.id} onClick={toggleModal}>
+        <ImageItem
+          key={image.id}
+          onClick={handle}
+          data-large-image={image.largeImageURL}
+        >
           <Image src={image.webformatURL} alt={image.name} />
         </ImageItem>
       ))}
@@ -21,6 +21,8 @@ export const ImageGalleryItem = ({
   );
 };
 
-// ImageGalleryItem.propTypes = {
-//   images: PropTypes.arrayOf(PropTypes.object).isRequired,
-// };
+ImageGalleryItem.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClickImage: PropTypes.func,
+  toggleModal: PropTypes.func,
+};
